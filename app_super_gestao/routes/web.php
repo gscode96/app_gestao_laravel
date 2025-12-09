@@ -12,14 +12,19 @@ Route::get('/login', function () {
     return 'Login';
 });
 
-Route::get('/clientes', function () {
-    return 'Clientes';
-});
 
-Route::get('/fornecedores', function () {
-    return 'Fornecedores';
-});
 
-Route::get('/produtos', function () {
-    return 'Produtos';
+// Grupo de rotas com prefixo /app para separar de outras rotas
+Route::prefix('/app')->group(function () {
+    Route::get('/clientes', function () {
+        return 'Clientes';
+    });
+
+    Route::get('/fornecedores', function () {
+        return 'Fornecedores';
+    });
+
+    Route::get('/produtos', function () {
+        return 'Produtos';
+    });
 });
