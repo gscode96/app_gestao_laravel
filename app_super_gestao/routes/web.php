@@ -9,12 +9,16 @@ Route::get('/sobre-nos', [App\Http\Controllers\SobreNosController::class, 'sobre
 Route::get('/contato', [App\Http\Controllers\ContatoController::class, 'contato' ]);
 
 Route::get(
-    '/contato/{nome}/{categoria}/{assunto}/{mensagem}',
-    function (string $nome, string $categoria, string $assunto, string $mensagem) {
-       echo "Estamos aqui para ajudar, $nome.<br>
-       Sua mensagem foi enviada com sucesso!<br>
+    '/contato/{nome?}/{categoria?}/{assunto?}/{mensagem?}',
+    function (
+        string $nome = 'Visitante',
+        string $categoria = 'Geral',
+        string $assunto = 'Contato',
+        string $mensagem = 'Mensagem não informada'
+    ) {
+        echo "Estamos aqui para ajudar, $nome.<br>
        Categoria: $categoria<br>
        Assunto : $assunto<br>
-       Mensagem: $mensagem";    
+       Mensagem: $mensagem";
     }
 );
