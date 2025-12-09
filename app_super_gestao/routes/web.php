@@ -9,16 +9,13 @@ Route::get('/sobre-nos', [App\Http\Controllers\SobreNosController::class, 'sobre
 Route::get('/contato', [App\Http\Controllers\ContatoController::class, 'contato' ]);
 
 Route::get(
-    '/contato/{nome?}/{categoria?}/{assunto?}/{mensagem?}',
+    '/contato/{nome?}/{categoria_id?}',
     function (
-        string $nome = 'Visitante',
-        string $categoria = 'Geral',
-        string $assunto = 'Contato',
-        string $mensagem = 'Mensagem não informada'
+        string $nome = 'Desconhecido',
+        int $categoria_id = 1,
     ) {
         echo "Estamos aqui para ajudar, $nome.<br>
-       Categoria: $categoria<br>
-       Assunto : $assunto<br>
-       Mensagem: $mensagem";
+       Categoria: $categoria_id<br>";
     }
-);
+)->where('categoria_id', '[0-9]+')->where('nome', '[A-Za-z]+'); //
+// Expressão regular para aceitar apenas números na categoria e letras no nome
