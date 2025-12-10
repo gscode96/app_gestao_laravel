@@ -16,13 +16,7 @@ Route::prefix('/app')->group(function () {
 
 
 // testanto redirecionamento de rota
-Route::get('/rota1', function () {
-    echo 'Rota 1';
-})->name('site.rota1');
-
-Route::get('/rota2', function () {
-    return redirect()->route('site.rota1');
-})->name('site.rota2');
+Route::get('/teste/{p1}/{p2}', [App\Http\Controllers\TesteController::class, 'teste'])->name('teste');
 
 
 // rota fallback (rota que é chamada quando nenhuma outra rota é encontrada)
