@@ -8,6 +8,9 @@ class TesteController extends Controller
 {
     public function teste(int $p1, int $p2)
     {
-        echo "A soma de {$p1} + {$p2} é igual a " . ($p1 + $p2);
+        #return \view('site.teste', ['p1' => $p1, 'p2' => $p2]); // array associativo para passar parametro para view
+        #return \view('site.teste', \compact('p1', 'p2')); // outro metodo para passar parametro para view (mais usado)
+        return \view('site.teste',)->with(['p1' => $p1, 'p2' => $p2]); // outro metodo para passar parametro para view
+
     }
 }
