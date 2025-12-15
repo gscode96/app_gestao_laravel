@@ -6,7 +6,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('css/estilo_basico.css') }}">
     </head>
     <body>
-    @include('layouts._partials.topo')
+    @include('site.layouts._partials.topo')
     @yield('conteudo')   
      </body>
 </html>
