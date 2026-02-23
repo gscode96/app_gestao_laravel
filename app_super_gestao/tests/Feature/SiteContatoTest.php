@@ -64,4 +64,13 @@ class SiteContatoTest extends TestCase
         print_r($contato->toArray());
         $this->assertIsObject($contato);
     }
+
+    public function test_busca_null(): void
+    {
+        //? para trazer campos com valor nulo, por exemplo, motivo_contato igual a null
+        $contato = SiteContato::whereNull('motivo_contato')->get();
+
+        $this->assertIsObject($contato);
+
+    }
 }
