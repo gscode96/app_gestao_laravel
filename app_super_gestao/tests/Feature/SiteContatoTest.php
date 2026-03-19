@@ -26,7 +26,7 @@ class SiteContatoTest extends TestCase
         $contato = SiteContato::find(1); //? para trazer o registro com id igual a 1
 
         $this->assertIsObject($contato);
-     
+
 
     }
 
@@ -73,4 +73,38 @@ class SiteContatoTest extends TestCase
         $this->assertIsObject($contato);
 
     }
+
+    public function test_operacao_logica(): void
+    {
+        // aplicando procedencia logica nas operações
+        $contato = SiteContato::where(function ($query) {
+            $query->where('nome', 'Jorge')
+                  ->orWhere('nome', 'Ana');
+        })->where(function ($query) {
+            $query->whereIn('motivo_contato', [1,2])
+                  ->orWhereBetween('id', [4, 6]);
+        })->get();
+
+        $this->assertIsObject($contato);
+
+    }
+
+    //---------Finalizado testes de buscas---------
+
+    //---------Início testes de manipulação da collection---------
+
+    public function test_manipulacao_collection(): void
+    {
+        //? para trazer o primeiro registro da tabela site_contatos
+        $contato = SiteContato::whereIn('id', [1,2])->get(); //? para trazer o registro com id igual a 1
+        $contato->last(); //? para trazer o último registro da collection
+        $contato->first(); //? para trazer o primeiro registro da collection
+        $contato->reverse(); //? para inverter a ordem dos registros na collection
+
+        $contato->toArray(); //? para transformar a collection em um array, --- não é possivel acessar os metodos staticos da collection ---
+        $contato->toJson(); //? para transformar a collection em um json; --- não é possivel acessar os metodos staticos da collection---
+
+        $contato->pluck('nome', 'id'); //? para trazer apenas o campo nome da collection, com o id como chave
+    }
+
 }
