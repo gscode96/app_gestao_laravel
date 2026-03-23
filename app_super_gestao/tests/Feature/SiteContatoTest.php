@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\SiteContato;
 
+
 class SiteContatoTest extends TestCase
 {
     /**
@@ -61,7 +62,6 @@ class SiteContatoTest extends TestCase
     {
         //? para trazer campos com mais de uma condição, por exemplo, motivo_contato igual a 1 e email igual a 'teste@teste.com'
         $contato = SiteContato::where('nome', '<>', '')->whereIn('motivo_contato', [1, 2])->whereBetween('created_at', ['2025-12-16', '2026-02-20'])->get();
-        print_r($contato->toArray());
         $this->assertIsObject($contato);
     }
 
@@ -105,6 +105,8 @@ class SiteContatoTest extends TestCase
         $contato->toJson(); //? para transformar a collection em um json; --- não é possivel acessar os metodos staticos da collection---
 
         $contato->pluck('nome', 'id'); //? para trazer apenas o campo nome da collection, com o id como chave
+
+        $this->assertIsObject($contato);
     }
 
 }
