@@ -61,9 +61,11 @@ class FornecedorTest extends TestCase
     {
 
         $fornecedor = Fornecedor::Where('nome', 'Fornecedor criado')->delete();
+
+        // para deletar de fato somente com o forceDelete, 
+        // o delete apenas marca o registro como deletado, mas ele ainda existe no banco de dados
         $this->assertTrue($fornecedor > 0);
 
     }
-
 
 }
