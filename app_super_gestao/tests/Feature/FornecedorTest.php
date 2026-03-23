@@ -10,7 +10,7 @@ class FornecedorTest extends TestCase
     /**
      * A basic feature test example.
      */
-    public function save_fornecedor(): void
+    public function test_save_fornecedor(): void
     {
         // busca o fornecedor com id 1 e altera seus atributos
 
