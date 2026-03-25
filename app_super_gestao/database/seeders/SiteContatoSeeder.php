@@ -13,7 +13,8 @@ class SiteContatoSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        SiteContato::factory()->count(100)->create(); // precisa criar a factory para o site contato    
+        /*
         $contato = new SiteContato();
         $contato->nome = 'Contato Teste';
         $contato->telefone = '11999999999';
@@ -28,6 +29,6 @@ class SiteContatoSeeder extends Seeder
             'email' => 'contato2@contatoteste.com',
             'motivo_contato' => 2, // motivo contato 2 - Elogio
             'mensagem' => 'Mensagem de teste para o contato 2'
-        ]);
+        ]); */
     }
 }

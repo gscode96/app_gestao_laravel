@@ -17,8 +17,9 @@ class FornecedorSeeder extends Seeder
     public function run(): void
     {
         // criando 10 fornecedores usando a factory
-        #Fornecedor::factory()->count(10)->create(); // precisa criar a factory para o fornecedor
-
+        Fornecedor::factory()->count(10)->create(); // precisa criar a factory para o fornecedor
+        
+        /*
         // criando um fornecedor manualmente
         $fornecedor = new Fornecedor();
         $fornecedor->nome = 'Fornecedor Teste';
@@ -42,6 +43,6 @@ class FornecedorSeeder extends Seeder
             'uf' => 'MG',
             'email' => 'contato@fornecedorteste3.com'
         ]);
-
+    */
     }
 }
