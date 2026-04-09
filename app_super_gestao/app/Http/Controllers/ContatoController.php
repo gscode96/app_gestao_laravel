@@ -29,13 +29,27 @@ class ContatoController extends Controller
 
         //? outra forma de salvar os dados do contato no banco de dados usando o Eloquent ORM do Laravel é usando o método fill() 
         //? esse metodo preeche os campos direto do modelo com os dados da requisição
-        $contato = new SiteContato();
-        $contato->fill($request->all());
-        $contato->save();
+        //?$contato = new SiteContato();
+        //?$contato->fill($request->all());
+        //?$contato->save();
 
         //? outro metodo de salvar os dados do contato no banco de dados usando o Eloquent ORM do Laravel é usando o método create()
         //? esse metodo é mais simples, mas precisa definir os campos fillable no modelo
         //? SiteContato::create($request->all());   
         return view('site.contato', ['titulo' => 'Contato (Controller)']);
+    }
+
+    public function salvar (Request $request) {
+
+        //? validando os dados da requisição usando o método validate() do Laravel, ele recebe um array com as regras de validação para cada campo
+        $request->validate([
+            'nome' => 'required',
+            'telefone' => 'required',
+            'email' => 'required',
+            'motivo_contato' => 'required',
+            'mensagem' => 'required'
+        ]);
+
+
     }
 }

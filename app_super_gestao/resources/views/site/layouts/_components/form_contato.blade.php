@@ -19,3 +19,14 @@
     <br>
     <button type="submit" class={{ $classe }}>ENVIAR</button>
 </form>
+
+{{-- Verificando se existem erros de validação e exibindo-os, variavel erros é automaticamente disponibilizada pelo Laravel --}}
+@if ($errors->any())
+    <div class="alert alert-danger" style="color: red; list-style: none;">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
