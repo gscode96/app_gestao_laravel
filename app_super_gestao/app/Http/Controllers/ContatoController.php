@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\SiteContato;
+#use App\Models\SiteContato;
+use App\Models\MotivoContato;
 
 class ContatoController extends Controller
 {
@@ -36,14 +37,17 @@ class ContatoController extends Controller
         //? outro metodo de salvar os dados do contato no banco de dados usando o Eloquent ORM do Laravel é usando o método create()
         //? esse metodo é mais simples, mas precisa definir os campos fillable no modelo
         //? SiteContato::create($request->all());   
-        return view('site.contato', ['titulo' => 'Contato (Controller)']);
+
+        $motivos_contatos = $motivos_contatos = MotivoContato::all();
+
+        return view('site.contato', ['titulo' => 'Contato (Controller)', 'motivos_contatos' => $motivos_contatos]);
     }
 
     public function salvar (Request $request) {
 
         //? validando os dados da requisição usando o método validate() do Laravel, ele recebe um array com as regras de validação para cada campo
         $request->validate([
-            'nome' => 'required',
+            'nome' => 'required|min:3|max:40',
             'telefone' => 'required',
             'email' => 'required',
             'motivo_contato' => 'required',
