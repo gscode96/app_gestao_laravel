@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-#use App\Models\SiteContato;
+use App\Models\SiteContato;
 use App\Models\MotivoContato;
 
 class ContatoController extends Controller
 {
     public function contato(Request $request)
-    { 
+    {
         //? request é uma classe do Laravel que representa a requisição HTTP feita pelo usuário,
         //? ela tem vários métodos para acessar os dados da requisição, como por exemplo:
         //? pode ser vizualizado no browser usando o comando dd($request) ou dd($request->all()) para ver todos os dados da requisição ou no f12 do navegador na aba network,
         //? clicando na requisição feita para a rota de contato e vendo os dados enviados no payload
-        //? todo formulario precisa ter o token gerado pelo Laravel para evitar ataques de CSRF, 
+        //? todo formulario precisa ter o token gerado pelo Laravel para evitar ataques de CSRF,
         //? esse token é gerado automaticamente quando usamos o blade e o comando @csrf
 
         //? salvando os dados do contato no banco de dados usando o Eloquent ORM do Laravel
@@ -28,7 +28,7 @@ class ContatoController extends Controller
         $contato->save();
         */
 
-        //? outra forma de salvar os dados do contato no banco de dados usando o Eloquent ORM do Laravel é usando o método fill() 
+        //? outra forma de salvar os dados do contato no banco de dados usando o Eloquent ORM do Laravel é usando o método fill()
         //? esse metodo preeche os campos direto do modelo com os dados da requisição
         //?$contato = new SiteContato();
         //?$contato->fill($request->all());
@@ -36,24 +36,37 @@ class ContatoController extends Controller
 
         //? outro metodo de salvar os dados do contato no banco de dados usando o Eloquent ORM do Laravel é usando o método create()
         //? esse metodo é mais simples, mas precisa definir os campos fillable no modelo
-        //? SiteContato::create($request->all());   
+        //? SiteContato::create($request->all());
 
         $motivos_contatos = $motivos_contatos = MotivoContato::all();
 
         return view('site.contato', ['titulo' => 'Contato (Controller)', 'motivos_contatos' => $motivos_contatos]);
     }
 
-    public function salvar (Request $request) {
+    public function salvar(Request $request)
+    {
 
-        //? validando os dados da requisição usando o método validate() do Laravel, ele recebe um array com as regras de validação para cada campo
-        $request->validate([
+        $campos = [
             'nome' => 'required|min:3|max:40',
             'telefone' => 'required',
-            'email' => 'required',
-            'motivo_contato' => 'required',
-            'mensagem' => 'required'
-        ]);
+            'email' => 'required|email',
+            'motivo_contatos_id' => 'required',
+            'mensagem' => 'required|max:2000'
+        ];
 
+        $feedback = [
+            'required' => 'O campo :attribute é obrigatório',
+            'nome.min' => 'O campo nome deve ter no mínimo 3 caracteres',
+            'nome.max' => 'O campo nome deve ter no máximo 40 caracteres',
+            'email.email' => 'O campo email deve ser um email válido',
+            'mensagem.max' => 'O campo mensagem deve ter no máximo 2000 caracteres'
+        ];
 
+        //? validando os dados da requisição usando o método validate() do Laravel, ele recebe um array com as regras de validação para cada campo
+        $request->validate($campos, $feedback);
+
+        SiteContato::create($request->all());
+
+        return redirect()->route('site.contato')->with('success', 'Contato enviado com sucesso!');
     }
 }
