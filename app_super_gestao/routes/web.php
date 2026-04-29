@@ -9,7 +9,7 @@ Route::post('/contato', [App\Http\Controllers\ContatoController::class, 'salvar'
 Route::get('/login', function () {return 'Login';})->name('site.login');
 
 // Grupo de rotas com prefixo /app para separar de outras rotas
-Route::prefix('/app')->group(function () {
+Route::prefix('/app')->middleware(['log.acesso','autenticacao'])->group(function () {
     Route::get('/clientes', function () {return 'Clientes';})->name('app.clientes');
     Route::get('/fornecedores', [App\Http\Controllers\FornecedorController::class, 'index'])->name('app.fornecedores');
     Route::get('/produtos', function () {return 'Produtos';})->name('app.produtos');

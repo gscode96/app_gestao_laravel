@@ -11,8 +11,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->web(append: [\App\Http\Middleware\LogAcessoMiddleware::class,
+        $middleware->web(append: [
+            'log.acesso' => \App\Http\Middleware\LogAcessoMiddleware::class, 
         ]);
+        $middleware->alias([
+         'log.acesso' => \App\Http\Middleware\LogAcessoMiddleware::class,
+         'autenticacao' => \App\Http\Middleware\AutenticacaoMiddleware::class]);
         $middleware->api(append: [
             //
         ]);
