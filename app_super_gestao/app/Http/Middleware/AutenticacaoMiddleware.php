@@ -15,6 +15,11 @@ class AutenticacaoMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return Response('Acesso negado. Você não tem permissão para acessar esta página.', 403);
+        if (true) {
+            return $next($request);
+        } else {
+            return Response('Acesso negado. Você não tem permissão para acessar esta página.', 403);
+        }
+        
     }
 }
