@@ -18,6 +18,10 @@ class LogAcessoMiddleware
         $date = new \DateTime('now', new \DateTimeZone('America/Sao_Paulo'));
         $log = "IP:" . $request->server('REMOTE_ADDR') . " - " . $date->format('Y-m-d H:i:s') . " - " . $request->method() . " - " . $request->getRequestUri();
         LogAcesso::create(['log' => $log]);
+        
+        $resposta = $next($request);
+        $resposta->setStatusCode(201, 'O status da resposta foi alterado para 201');
+
         return $next($request);
     
     }
