@@ -13,14 +13,12 @@ class AutenticacaoMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, string $parametro): Response
+    public function handle(Request $request, Closure $next): Response
     {
-        if ($parametro == 'teste') {
-            echo 'Parametro recebido: '.$parametro;
-            return $next($request);
+    
+        if (!session()->has('nome') || !session()->has('email')) {
+            return redirect()->route('site.login', ['erro' => 2]); 
         }
-        return Response('Acesso negado. Você não tem permissão para acessar esta página.', 403);
-        
-        
+        return $next($request);
     }
 }
